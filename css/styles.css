@@ -1,0 +1,332 @@
+/*font-family: 'Jost', sans-serif;
+font-family: 'Playfair Display', serif;
+font-family: 'Antic Slab', serif;*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    scroll-behavior: smooth;
+    font-family: 'Antic Slab', serif;
+}
+
+:root{
+    --bg-color: #fdf9ee;
+    --text-color: #030303;
+    --main-color: #7289f7;
+    --snd-bg-color: #002c84;
+    --sec-bg-color: #5e6472;
+    --sec-white-color: #e6f7ff; /* f0f8ff */
+}
+
+html{
+    font-size: 62.5%;
+    overflow-x: hidden;
+}
+
+body{
+    background: var(--sec-white-color);
+    color: var(--text-color);
+}
+
+section{
+    min-height: 100vh;
+    padding: 10rem 9% 2rem;
+}
+
+/* Header Section */
+
+.header{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 5%;
+    background: var(--sec-bg-color);
+    backdrop-filter: blur(10px);
+    transition: all 0.5s ease;
+}
+
+.logo{
+    font-size: 3rem;
+    color: var(--bg-color);
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.logo:hover{
+    transform: scale(1.05);
+}
+
+.navbar a{
+    font-size: 1.9rem;
+    color: var(--text-color);
+    margin-left: 4rem;
+    font-weight: 700;
+    transition: 0.3s ease;
+    position: relative;
+    text-decoration: none;
+}
+
+.navbar a:hover,
+.navbar a:active{
+    color: var(--text-color);
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 0.6rem;
+    text-decoration-skip-ink: none;
+}
+
+#menu-icon{
+    font-size: 3.6rem;
+    color: var(--bg-color);
+    cursor: pointer;
+    display: none;
+}
+
+/* Editor Section */
+
+.btn{
+    display: inline-block;
+    padding: 1rem 2.8rem;
+    background: var(--text-color);
+    border-radius: 4rem;
+    box-shadow: none;
+    font-size: 1.6rem;
+    color: var(--bg-color);
+    letter-spacing: 0.1rem;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.btn:hover{
+    box-shadow: 0 0 1.6rem var(--text-color);
+}
+
+/* Latest Blog Section */
+
+.latest{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    background: var(--main-color);
+}
+
+.latest-img img{
+    width: 25vw;
+    border: 2px solid var(--main-color);
+    border-radius: 5%;
+    box-shadow: 0 0 25px var(--main-color);
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+
+.latest-img img:hover{
+    box-shadow: 0 0 25px var(--main-color),
+                0 0 35px var(--main-color),
+                0 0 45px var(--main-color);
+}
+
+.heading{
+    font-size: 6rem;
+    text-align: center;
+}
+
+.latest-content{
+    padding: 0 4rem;
+}
+
+.latest-content h2{
+    text-align: left;
+    line-height: 1.2;
+}
+
+.latest-content h3{
+    font-size: 3rem;
+}
+
+.latest-content p{
+    font-size: 1.6rem;
+    margin: 2rem 0 3rem;
+}
+
+.latest-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.latest-actions .edit-btn, .delete-btn {
+    background: var(--bg-color);
+    color: var(--text-color);
+    border: 2px solid var(--bg-color);
+    padding: 0.8rem 1.5rem;
+    font-size: 1.4rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.latest-actions .edit-btn i, .delete-btn i {
+    font-size: 1.6rem;
+}
+
+.latest-actions .delete-btn {
+    background: crimson;
+    color: white;
+    border: none;
+}
+
+.latest-actions .edit-btn:hover {
+    background: #696969;
+    color: white;
+}
+
+.latest-actions .delete-btn:hover {
+    background: darkred;
+}
+
+/* All Blogs Section */
+
+.blogs{
+    background: var(--snd-bg-color);
+}
+
+.blogs-box{
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.blogs .heading{
+    margin-bottom: 5rem;
+}
+
+.blogs-box img{
+    width: 100%;
+    border-radius: 1rem;
+    height: auto;
+    border: 3px solid var(--main-color);
+    box-shadow: 0 0 25px var(--main-color);
+}
+
+.wrapper{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 3rem;
+}
+
+.blog-item{
+    min-height: 450px;
+    max-width: 450px;
+    background: var(--bg-color);
+    border: 0.3rem solid var(--bg-color);
+    border-radius: 2rem;
+    margin: 0 2rem;
+    padding: 20px 20px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    color: var(--text-color);
+    transition: 0.3s ease;
+}
+
+.blog-item:hover{
+    border-color: var(--main-color);
+    transform: scale(1.02);
+}
+
+.blog-item h2{
+    font-size: 3rem;
+}
+
+.blog-meta {
+    font-size: 1.5rem;
+    color: var(--sec-bg-color);
+    text-align: center;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.blog-item p{
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+#star{
+    color: gold;
+    font-size: 1.5rem;
+}
+
+.blog-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.edit-btn, .delete-btn {
+    background: var(--main-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.4rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.edit-btn i, .delete-btn i {
+    font-size: 1.6rem;
+}
+
+.delete-btn {
+    background: crimson;
+}
+
+.edit-btn:hover {
+    background: #5a74d6;
+}
+
+.delete-btn:hover {
+    background: darkred;
+}
+
+/* Footer Section */
+
+.footer{
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    padding: 20px 0;
+    background-color: var(--text-color);
+}
+
+.footer .copyright{
+    margin-top: 20px;
+    text-align: center;
+    font-size: 16px;
+    color: var(--sec-white-color);
+}
