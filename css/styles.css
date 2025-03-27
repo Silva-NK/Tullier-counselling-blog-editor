@@ -14,12 +14,12 @@ font-family: 'Antic Slab', serif;*/
 }
 
 :root{
-    --bg-color: #fdf9ee;
-    --text-color: #030303;
+    --bg-color: #f4f7ff;
+    --text-color: #1f1f1f;
     --main-color: #7289f7;
     --snd-bg-color: #002c84;
-    --sec-bg-color: #5e6472;
-    --sec-white-color: #e6f7ff; /* f0f8ff */
+    --sec-bg-color: #4a5568;
+    --sec-white-color: #ffffff; /* f0f8ff */
 }
 
 html{
@@ -28,13 +28,16 @@ html{
 }
 
 body{
-    background: var(--sec-white-color);
     color: var(--text-color);
 }
 
 section{
     min-height: 100vh;
     padding: 10rem 9% 2rem;
+}
+
+span{
+    color: var(--snd-bg-color);
 }
 
 /* Header Section */
@@ -48,7 +51,7 @@ section{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.5rem 5%;
+    padding: 1rem 5%;
     background: var(--sec-bg-color);
     backdrop-filter: blur(10px);
     transition: all 0.5s ease;
@@ -92,8 +95,6 @@ section{
     display: none;
 }
 
-/* Editor Section */
-
 .btn{
     display: inline-block;
     padding: 1rem 2.8rem;
@@ -108,7 +109,148 @@ section{
 }
 
 .btn:hover{
-    box-shadow: 0 0 1.6rem var(--text-color);
+    color: var(--bg-color);
+    background: var(--text-color);
+    box-shadow: 0 0 1.6rem rgba(0, 0, 0, 0.8);
+    transform: scale(1.05);
+}
+
+/* Editor Section */
+
+.editor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 110vh;
+    padding: 2rem;
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+.editor-container {
+    background: var(--sec-white-color);
+    padding: 3rem;
+    padding-top: 5rem;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1500px;
+    min-height: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 2px solid var(--snd-bg-color);
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2rem;
+    position: relative;
+    border-bottom: 2px solid var(--sec-bg-color);
+    padding-bottom: 5px;
+}
+
+.input-group input {
+    flex: 1;
+    padding: 0.5rem 0;
+    font-size: 1.6rem;
+    border: none;
+    background: transparent;
+    color: var(--text-color);
+    outline: none;
+    text-align: left;
+}
+
+
+.input-group label {
+    font-size: 1.6rem;
+    color: var(--snd-bg-color);
+    margin-right: 0.5rem;
+    white-space: nowrap;
+    order: 0;
+    min-width: 120px;
+    text-align: left;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+    bottom: 30px;
+    font-size: 1.2rem;
+    color: var(--main-color);
+    border-bottom: 2px solid var(--main-color);
+}
+
+.editor-container textarea {
+    width: 100%;
+    height: 350px;
+    resize: vertical;
+    padding: 1rem;
+    font-size: 1.6rem;
+    border: 2px solid var(--sec-bg-color);
+    background: transparent;
+    color: var(--text-color);
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.editor-container textarea:focus {
+    border-color: var(--main-color);
+}
+
+.editor-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+}
+
+.left-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.preview-btn {
+    background: grey;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+.clear-btn {
+    background: #daa520;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+.clear-btn:hover {
+    background: #b8860b;
+}
+
+.submit-btn {
+    background: #00b300;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+.preview-btn:hover {
+    background: var(--sec-bg-color);
+}
+
+.submit-btn:hover {
+    background: #006400;
 }
 
 /* Latest Blog Section */
@@ -311,6 +453,94 @@ section{
 }
 
 .delete-btn:hover {
+    background: darkred;
+}
+
+/* Pop-up Table Modal */
+
+.popup-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s;
+}
+
+.popup-content {
+    background: var(--bg-color);
+    padding: 2rem;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-radius: 10px;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px; right: 15px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--text-color);
+    text-align: left;
+}
+
+th {
+    background: var(--sec-bg-color);
+    color: var(--bg-color);
+}
+
+.actions button {
+    margin-right: 5px;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.edit-btn { 
+    background: #DAA520; 
+    color: black; 
+}
+
+.preview-btn { 
+    background: grey; 
+    color: white; 
+}
+
+.delete-btn { 
+    background: red; 
+    color: white; 
+}
+
+.edit-btn:hover { 
+    background: #b8860b;
+}
+
+.preview-btn:hover { 
+    background: var(--sec-bg-color);
+}
+
+.delete-btn:hover { 
     background: darkred;
 }
 
