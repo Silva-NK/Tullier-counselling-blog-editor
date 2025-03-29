@@ -164,6 +164,18 @@ span{
     text-align: left;
 }
 
+.input-group select {
+    flex: 1;
+    padding: 0.5rem;
+    font-size: 1.6rem;
+    border: none;
+    background: transparent;
+    color: var(--text-color);
+    outline: none;
+    text-align: left;
+    appearance: none;
+    cursor: pointer;
+}
 
 .input-group label {
     font-size: 1.6rem;
@@ -296,6 +308,13 @@ span{
     font-size: 3rem;
 }
 
+.latest-content h4 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #777;
+    font-weight: normal;
+}                                                                                                                                                                                                                                                                        
+
 .latest-content p{
     font-size: 1.6rem;
     margin: 2rem 0 3rem;
@@ -415,7 +434,7 @@ span{
     text-align: center;
 }
 
-#star{
+.star{
     color: gold;
     font-size: 1.5rem;
 }
@@ -460,8 +479,10 @@ span{
 
 .popup-overlay {
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
@@ -473,35 +494,54 @@ span{
 
 .popup-content {
     background: var(--bg-color);
-    padding: 2rem;
+    padding: 3rem;
     width: 90%;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 1600px;
     max-height: 80vh;
-    overflow-y: auto;
+    overflow: hidden;
     border-radius: 10px;
     position: relative;
+    font-size: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 2px solid var(--snd-bg-color);
 }
 
 .close-btn {
     position: absolute;
-    top: 10px; right: 15px;
-    font-size: 2rem;
+    top: 10px; 
+    right: 22px;
+    font-size: 2.5rem;
     cursor: pointer;
     color: var(--text-color);
 }
 
 .table-container {
     overflow-x: auto;
+    overflow-y: auto;
+    max-height: 60vh;
+    border: 1px solid var(--text-color);
 }
 
 table {
     width: 100%;
+    min-width: 100%;
     border-collapse: collapse;
 }
 
 th, td {
     padding: 1rem;
-    border-bottom: 1px solid var(--text-color);
+    border-bottom: 1.8px solid var(--text-color);
     text-align: left;
+    white-space: nowrap;
+}
+
+td {
+    height: 100%;
+    vertical-align: middle !important;
+    padding: 1rem;
 }
 
 th {
@@ -509,39 +549,227 @@ th {
     color: var(--bg-color);
 }
 
+tr {
+    height: auto;
+}
+
+.search-filter-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+#searchInput,
+#categoryFilter {
+    padding: 0.8rem;
+    font-size: 1.4rem;
+    border: 1px solid var(--text-color);
+    border-radius: 5px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 1rem;
+}
+
 .actions button {
-    margin-right: 5px;
-    padding: 0.5rem 1rem;
+    padding: 0.2rem;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
-.edit-btn { 
-    background: #DAA520; 
-    color: black; 
+.actions .bxs-edit {
+    color: #daa520;
 }
 
-.preview-btn { 
-    background: grey; 
-    color: white; 
+.actions .bx-detail {
+    color: grey;
 }
 
-.delete-btn { 
-    background: red; 
-    color: white; 
+.actions .bxs-trash {
+    color: red;
 }
 
-.edit-btn:hover { 
-    background: #b8860b;
+.actions .bxs-edit:hover {
+    color: #b8860b; 
 }
 
-.preview-btn:hover { 
-    background: var(--sec-bg-color);
+.actions .bx-detail:hover {
+    color: var(--sec-bg-color);
 }
 
-.delete-btn:hover { 
-    background: darkred;
+.actions .bxs-trash:hover {
+    color: darkred;
+}
+
+button[data-tooltip] {
+    position: relative;
+}
+
+button[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: black;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+button[data-tooltip]:hover::after {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Edit Popup Modal */
+
+#popupForm .close-btn {
+    position: absolute;
+    top: 40px; 
+    right: 60px;
+    font-size: 2.5rem;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+#popupForm .popup-content {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.popup-content .editor-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.popup-content .input-group {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2rem;
+    position: relative;
+    border-bottom: 2px solid var(--sec-bg-color);
+    padding-bottom: 5px;
+}
+
+.popup-content .editor-content {
+    width: 100%;
+    height: 350px;
+    resize: vertical;
+    padding: 1rem;
+    font-size: 1.6rem;
+    border: 2px solid var(--sec-bg-color);
+    background: transparent;
+    color: var(--text-color);
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.popup-content .editor-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+}
+
+.popup-content .left-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Previews and Views Section */
+
+.post-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s;
+    z-index: 9999;
+}
+
+.post-popup-content {
+    background: var(--bg-color);
+    padding: 2rem;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 10px;
+    position: relative;
+    font-size: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid var(--snd-bg-color);
+}
+
+.close-view-btn, .close-preview-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.post-image-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.post-image-container img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.post-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.post-rating {
+    display: flex;
+    gap: 5px;
+    color: gold;
+    margin-bottom: 1rem;
 }
 
 /* Footer Section */

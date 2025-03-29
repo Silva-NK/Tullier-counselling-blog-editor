@@ -39,7 +39,15 @@
             
                 <div class="input-group">
                     <label for="category">Blog Category:</label>
-                    <input type="text" id="category" name="category" required>
+                    <select id="category" name="category" required>
+                        <option value="" disabled selected>Select a category</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Health">Health</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Travel">Travel</option>
+                        <option value="Education">Education</option>
+                        <option value="Lifestyle">Lifestyle</option>
+                    </select>                    
                 </div>
             
                 <div class="input-group">
@@ -65,21 +73,20 @@
             </form>
         </section>
 
-
-
         <!-- Latest Blog Section -->
 
         <section class="latest" id="latest">
             <div class="latest-content">
-                <h2 class="heading"> Last <span>Post</span></h2>
-                <h3><span>Author: </span>Author Name</span></h3>
-                <p> 
+                <h2 class="heading"><span id="latest-title">Last Post</span></h2>
+                <h3>Author: <span id="latest-author">Author Name</span></h3>
+                <h4><span>Date: </span><span id="latest-date"></span></h4>
+                <p id="latest-content"> 
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
                     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
                     Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 
                 </p>
-                <a href="#" class="btn">Read</a>
+                <a href="#" class="btn" id="latest-link">Read</a>
 
                 <br/> <br/>
 
@@ -89,12 +96,10 @@
                 </div>
             </div>
 
-            <div class="latest-img">
+            <div class="latest-img" id="latest-img">
                 <img src="images/Blog-4.png" alt="Latest Blog Image">
             </div>
         </section>
-
-
 
         <!-- All Blogs Section -->
 
@@ -202,6 +207,19 @@
             <div class="popup-content">
                 <span class="close-btn">&times;</span>
                 <h2>Blog Posts</h2>
+        
+                <div class="search-filter-container">
+                    <input type="text" id="searchInput" placeholder="Search by title..." onkeyup="filterTable()">
+                    <select id="categoryFilter" onchange="filterTable()">
+                        <option value="">All Categories</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Lifestyle">Lifestyle</option>
+                        <option value="Business">Business</option>
+                        <option value="Travel">Travel</option>
+                        <option value="Health">Health</option>
+                    </select>
+                </div>
+        
                 <div class="table-container">
                     <table>
                         <thead>
@@ -211,6 +229,7 @@
                                 <th>Category</th>
                                 <th>Author</th>
                                 <th>Image</th>
+                                <th>Time Stamp</th>
                                 <th>Content</th>
                                 <th>Actions</th>
                             </tr>
@@ -221,6 +240,104 @@
                 </div>
             </div>
         </div>
+        
+
+        <!-- Edit Popup Modal -->
+
+        <div id="popupForm" class="popup-overlay">
+            <div class="popup-content">
+                <span class="close-btn">&times;</span>
+                <h2 class="heading">Edit <span>Blog Post</span></h2>
+                
+                <form class="editor-container" id="editForm">
+                    <div class="input-group">
+                        <label for="edit-title">Blog Title:</label>
+                        <input type="text" id="edit-title" name="title" required>
+                    </div>
+        
+                    <div class="input-group">
+                        <label for="edit-category">Blog Category:</label>
+                        <select id="edit-category" name="category" required>
+                            <option value="" disabled>Select a category</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Health">Health</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Travel">Travel</option>
+                            <option value="Education">Education</option>
+                            <option value="Lifestyle">Lifestyle</option>
+                        </select>
+                        
+                    </div>
+        
+                    <div class="input-group">
+                        <label for="edit-author">Author Name:</label>
+                        <input type="text" id="edit-author" name="author" required>
+                    </div>
+        
+                    <div class="input-group">
+                        <label for="edit-img">Image URL:</label>
+                        <input type="text" id="edit-img" name="img" required>
+                    </div>
+        
+                    <textarea class="editor-content" id="editor-content" name="content" placeholder="Write your blog here..."></textarea>
+        
+                    <div class="editor-buttons">
+                        <div class="left-buttons">
+                            <button type="button" class="clear-btn" id="edit-clear-btn">Clear</button>
+                            <button type="button" class="preview-btn" onclick="previewEditPost()">Preview</button>
+                        </div>
+                        <button type="submit" class="submit-btn">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Preview Popup -->
+
+        <div id="previewPopup" class="post-popup-overlay">
+            <div class="post-popup-content">
+                <span class="close-preview-btn">&times;</span>
+                <div class="post-image-container">
+                    <img id="preview-img" src="images/placeholder.jpg" alt=" Post Title">
+                </div>
+                <h2 id="preview-title">Preview Title</h2>
+                <div class="post-meta">
+                    <span class="post-author">By <span id="preview-author">Author Name</span></span>
+                    <span class="post-category" id="preview-category">Category</span>
+                    <span class="post-date">Just Now</span>
+                </div>
+                <p id="preview-content">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+                </p>
+            </div>
+        </div>
+
+        <!-- View/Read Popup -->
+
+        <div id="viewPopup" class="post-popup-overlay">
+            <div class="post-popup-content">
+                <span class="close-view-btn">&times;</span>
+                <div class="post-image-container">
+                    <img id="view-img" src="images/placeholder.jpg" alt="Blog Image">
+                </div>
+                <h2 id="view-title">Post Title</h2>
+                <div class="post-meta">
+                    <span class="post-author">By <span id="view-author">Author Name</span></span>
+                    <span class="post-category" id="view-category">Category</span>
+                    <span class="post-date" id="view-date">Date</span>
+                </div>
+                <div class="post-rating">
+                    <i class='bx bxs-star' id="star1"></i>
+                    <i class='bx bxs-star' id="star2"></i>
+                    <i class='bx bxs-star' id="star3"></i>
+                    <i class='bx bxs-star' id="star4"></i>
+                    <i class='bx bxs-star' id="star5"></i>
+                </div>
+                <p id="view-content">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+                </p>
+            </div>
+        </div>
 
         <!--Footer Section-->
         
@@ -228,10 +345,9 @@
             <p class="copyright">
                 &copy; Copyright <span id="year"></span> Suzanne Kiago - All Rights Reserved.
             </p>
-
-            <script src="./index.js"></script>
         </footer>
+
+        <script src="./index.js"></script>
     </body>
 
-    <script src="./index.js"></script>
 </html>
